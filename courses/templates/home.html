@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Course System</h1>
+    <p class="lead">Simple student course selection system</p>
+    <hr class="my-4">
+    <p>Please login or register to continue</p>
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>
+    </div>
+</div>
+{% endblock %}

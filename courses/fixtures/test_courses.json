@@ -1,0 +1,35 @@
+[
+    {
+      "model": "courses.course",
+      "fields": {
+        "name": "AI",
+        "code": "CS301",
+        "credits": 3,
+        "capacity": 30,
+        "schedule": "Monday 8:00 AM - 10:00 AM",
+        "teacher": "Lee"
+      }
+    },
+    {
+      "model": "courses.course",
+      "fields": {
+        "name": "Big Data",
+        "code": "CS401",
+        "credits": 4,
+        "capacity": 25,
+        "schedule": "Monday 10:00 AM - 12:00 PM",
+        "teacher": "Linda"
+      }
+    },
+    {
+      "model": "courses.course",
+      "fields": {
+        "name": "History",
+        "code": "CS402",
+        "credits": 2,
+        "capacity": 25,
+        "schedule": "Friday 10:00 AM - 12:00 PM",
+        "teacher": "Joe"
+      }
+    }
+  ]

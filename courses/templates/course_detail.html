@@ -1,0 +1,62 @@
+<!-- templates/course_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">{{ course.name }} ({{ course.code }})</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>Course Details</h5>
+                    <p class="lead">{{ course.description }}</p>
+                    <dl class="row">
+                        <dt class="col-sm-3">Schedule</dt>
+                        <dd class="col-sm-9">{{ course.schedule }}</dd>
+                        
+                        <dt class="col-sm-3">Credits</dt>
+                        <dd class="col-sm-9">{{ course.credits }}</dd>
+                        
+                        <dt class="col-sm-3">Teacher</dt>
+                        <dd class="col-sm-9">{{ course.teacher }}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Enrollment Status</h5>
+                            <p class="card-text">
+                                Available Seats: {{ course.capacity }}<br>
+                                {% if is_enrolled %}
+                                <span class="text-success">You are enrolled</span>
+                                {% else %}
+                                <span class="text-warning">Not enrolled</span>
+                                {% endif %}
+                            </p>
+                            {% if not is_enrolled %}
+                            <form method="post" action="{% url 'enroll' course.id %}">
+                                {% csrf_token %}
+                                <button type="submit" 
+                                        class="btn btn-success w-100"
+                                        {% if course.available_seats <= 0 %}disabled{% endif %}>
+                                    Enroll Now
+                                </button>
+                            </form>
+                            {% else %}
+                            <form method="post" action="{% url 'drop' enrollment.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger w-100">
+                                    Drop Course
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
