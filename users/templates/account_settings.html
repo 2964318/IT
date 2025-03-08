@@ -1,3 +1,16 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}Account Settings{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#<div class="card">#}
+{#    <div class="card-header">Account Settings</div>#}
+{#    <div class="card-body">#}
+{#        <p>Username: {{ user.username }}</p>#}
+{#        <a href="{% url 'change_password' %}" class="btn btn-warning">Change Password</a>#}
+{#    </div>#}
+{#</div>#}
+{#{% endblock %}#}
 {% extends 'base.html' %}
 
 {% block title %}Account Settings{% endblock %}
@@ -7,7 +20,39 @@
     <div class="card-header">Account Settings</div>
     <div class="card-body">
         <p>Username: {{ user.username }}</p>
-        <a href="{% url 'change_password' %}" class="btn btn-warning">Change Password</a>
+        <!-- 让 "Change Password" 触发 jQuery 事件，而不是直接跳转 -->
+        <button id="changePasswordBtn" class="btn btn-warning">Change Password</button>
+    </div>
+</div>
+
+<!-- Modal: 密码修改弹窗 -->
+<div id="changePasswordModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Old Password</label>
+                        <input type="password" class="form-control" name="old_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control" name="new_password1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" name="new_password2" required>
+                    </div>
+                    <div class="alert alert-danger d-none" id="changePasswordError"></div>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

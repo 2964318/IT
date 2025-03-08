@@ -1,5 +1,7 @@
 <!-- templates/admin/send_notification.html -->
 {% extends 'base.html' %}
+#加载static
+{% load static %}
 {% block content %}
 <div class="container mt-4">
     <div class="card shadow">
@@ -44,23 +46,26 @@
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const courseSection = document.getElementById('courseSelection');
-    const courseRadios = document.querySelectorAll('input[name="target_type"]');
-
-    function toggleCourseVisibility() {
-        const selectedValue = document.querySelector('input[name="target_type"]:checked').value;
-        courseSection.style.display = selectedValue === 'course' ? 'block' : 'none';
-    }
-
-    // Initial check
-    toggleCourseVisibility();
-    
-    // Add event listeners
-    courseRadios.forEach(radio => {
-        radio.addEventListener('change', toggleCourseVisibility);
-    });
-});
-</script>
+{#<script>#}
+{#document.addEventListener('DOMContentLoaded', function() {#}
+{#    const courseSection = document.getElementById('courseSelection');#}
+{#    const courseRadios = document.querySelectorAll('input[name="target_type"]');#}
+{##}
+{#    function toggleCourseVisibility() {#}
+{#        const selectedValue = document.querySelector('input[name="target_type"]:checked').value;#}
+{#        courseSection.style.display = selectedValue === 'course' ? 'block' : 'none';#}
+{#    }#}
+{##}
+{#    // Initial check#}
+{#    toggleCourseVisibility();#}
+{#    #}
+{#    // Add event listeners#}
+{#    courseRadios.forEach(radio => {#}
+{#        radio.addEventListener('change', toggleCourseVisibility);#}
+{#    });#}
+  {# });#}
+{#</script>#}
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/send_notification.js' %}"></script>
 {% endblock %}
