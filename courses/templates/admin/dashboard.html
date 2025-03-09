@@ -11,7 +11,7 @@
                 <h5><i class="bi bi-journal-text"></i> Manage Courses</h5>
                 <p class="mb-1 text-muted">
                     Total Courses: {{ courses|length }}<br>
-                    Recent Activity: Manage Courses allows you to view, add, edit, delete, and manage the number of courses you enroll. Click Skip to enter the Courses Management page for more detailed management.
+                    Intro: Manage Courses allows you to view, add, edit, delete, and manage the number of courses you enroll. Click Skip to enter the Courses Management page for more detailed management.
                 </p>
             </div>
             <a href="{% url 'courses_management' %}" class="btn btn-primary">Skip</a>
@@ -23,7 +23,7 @@
                 <h5><i class="bi bi-people"></i> Manage Students</h5>
                 <p class="mb-1 text-muted">
                     Total Students: {{ students|length }}<br>
-                    Recent Activity: Manage Students Allows you to view, edit, and delete students. Click Skip to enter the Students Management page for more detailed management.
+                    Intro: Manage Students Allows you to view, edit, and delete students. Click Skip to enter the Students Management page for more detailed management.
                 </p>
             </div>
             <a href="{% url 'students_management' %}" class="btn btn-primary">Skip</a>
@@ -35,7 +35,7 @@
                 <h5><i class="bi bi-bell"></i> Post Notifications</h5>
                 <p class="mb-1 text-muted">
                     Latest Notification: {{ latest_notification.message|truncatewords:5 }}<br>
-                    Recent Activity: Post Notifications allows you to view and edit notifications. Click Skip to go to the Post Notifications page for more detailed management.
+                    Intro: Post Notifications allows you to view and edit notifications. Click Skip to go to the Post Notifications page for more detailed management.
                 </p>
             </div>
             <a href="{% url 'notifications' %}" class="btn btn-primary">Skip</a>
