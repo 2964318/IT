@@ -25,7 +25,7 @@ $(document).ready(function () {
             type: "POST",
             data: $(this).serialize(),  // 获取表单数据
             success: function (response) {
-                window.location.href = "/dashboard/";  // 登录成功后跳转
+                window.location.href = response.redirect_url;  // 根据后端返回的 `redirect_url` 跳转
             },
             error: function (xhr) {
                 $("#loginAlert").removeClass("d-none").text("Invalid username or password"); // 显示错误
