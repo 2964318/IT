@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from courses.views import home, dashboard, course_detail, enroll_course, drop_course, notifications, course_registration
+from courses.views import home, dashboard, course_detail, enroll_course, drop_course, notifications, course_registration,my_course
 from courses.views_admin import (
     admin_dashboard,
     edit_course, 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('dashboard/', dashboard, name='dashboard'),
     # path('accounts/', include('django.contrib.auth.urls')), 
+    path('my_course/', my_course, name='my_course'),
     path('course-registration/', course_registration, name='course_registration'),
     path('account_settings/', account_settings, name='account_settings'),
     path('register/', register_view, name='register'),
