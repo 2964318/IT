@@ -8,12 +8,16 @@ from courses.views_admin import (
     delete_course, 
     toggle_user_status, 
     edit_user,
-    send_notification
+    send_notification,
+    courses_management,
+    students_management
 )
 from users.views import account_settings, CustomLoginView, register_view, custom_logout, change_password
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('admin/courses/', courses_management, name='courses_management'),  # 课程管理
+    path('admin/students/', students_management, name='students_management'),  # 学生管理
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     path('admin/courses/edit/<int:course_id>/', edit_course, name='edit_course'),
     path('admin/course/delete/<int:course_id>/', delete_course, name='delete_course'),
