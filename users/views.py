@@ -31,7 +31,10 @@ class CustomLoginView(LoginView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return JsonResponse({"message": "success"}, status=200)  # 登录成功返回 JSON
+            #return JsonResponse({"message": "success"}, status=200)  # 登录成功返回 JSON
+            redirect_url = reverse_lazy('admin_dashboard') if user.is_superuser else reverse_lazy('dashboard')
+            return JsonResponse({"message": "success", "redirect_url": str(redirect_url)}, status=200)
+       
         else:
             return JsonResponse({"error": "Invalid credentials"}, status=400)  # 登录失败
     
