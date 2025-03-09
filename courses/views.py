@@ -40,7 +40,36 @@ def dashboard(request):
         'time_slots': time_slots,
         'days': days
     })
-   
+
+@login_required
+def course_registration(request):
+    # 获取所有课程及其注册信息
+    courses = Course.objects.annotate(
+        enrolled_count=Count('enrollment'),
+        available_seats=F('capacity') - F('enrolled_count')
+    ).order_by('code')
+
+    # 将课程信息转换为表格格式
+    registration_table = []
+    for course in courses:
+        days_times = course.schedule  # 假设 schedule 字段存储了课程的时间安排
+        enrollment = Enrollment.objects.filter(course=course, student=request.user).first()
+        status = "Enrolled" if enrollment else "Not Enrolled"
+        action = "Drop" if status == "Enrolled" else "Enroll"
+        
+        registration_table.append({
+            'class': course.name,
+            'days_times': days_times,
+            'status': status,
+            'action': action,
+            'course': course,
+            'enrollment': enrollment,  # 这里可能是 None
+        })
+
+    return render(request, 'course_registration.html', {
+        'registration_table': registration_table
+    })
+
 @login_required
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
