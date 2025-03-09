@@ -13,10 +13,23 @@ def is_admin(user):
 def admin_dashboard(request):
     courses = Course.objects.annotate(student_count=Count('enrollment'))
     students = CustomUser.objects.filter(is_superuser=False)
+    # 获取最新的通知（如果没有，显示 None）
+    latest_notification = Notification.objects.order_by('-created_at').first()
     return render(request, 'admin/dashboard.html', {
         'courses': courses,
-        'students': students
+        'students': students,
+        'latest_notification': latest_notification,  
     })
+
+@user_passes_test(is_admin)
+def courses_management(request):
+    courses = Course.objects.annotate(student_count=Count('enrollment'))
+    return render(request, 'admin/courses_management.html', {'courses': courses})
+
+@user_passes_test(is_admin)
+def students_management(request):
+    students = CustomUser.objects.filter(is_superuser=False)
+    return render(request, 'admin/students_management.html', {'students': students})
     
 @user_passes_test(is_admin)
 def add_course(request):
@@ -24,7 +37,8 @@ def add_course(request):
         form = CourseForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('admin_dashboard')
+            #return redirect('admin_dashboard')
+            return redirect('courses_management')
     else:
         form = CourseForm()
     return render(request, 'admin/course_form.html', {'form': form})
@@ -36,7 +50,8 @@ def edit_course(request, course_id):
         form = CourseForm(request.POST, instance=course)
         if form.is_valid():
             form.save()
-            return redirect('admin_dashboard')
+            #return redirect('admin_dashboard')
+            return redirect('courses_management')
     else:
         form = CourseForm(instance=course)
     return render(request, 'admin/course_form.html', {'form': form})
@@ -46,7 +61,8 @@ def delete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     if request.method == 'POST':
         course.delete()
-    return redirect('admin_dashboard')
+    #return redirect('admin_dashboard')
+    return redirect('courses_management')
 
 @user_passes_test(is_admin)
 def toggle_user_status(request, user_id):
@@ -54,7 +70,8 @@ def toggle_user_status(request, user_id):
     if request.method == 'POST':
         user.is_active = not user.is_active
         user.save()
-    return redirect('admin_dashboard')
+    #return redirect('admin_dashboard')
+    return redirect('students_management')
 
 @user_passes_test(is_admin)
 def edit_user(request, user_id):
@@ -63,7 +80,8 @@ def edit_user(request, user_id):
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('admin_dashboard')
+            #return redirect('admin_dashboard')
+            return redirect('students_management')
     else:
         form = UserEditForm(instance=user)
     return render(request, 'admin/user_form.html', {'form': form})
