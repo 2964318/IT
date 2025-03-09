@@ -24,13 +24,14 @@
             {% if user.is_authenticated %}
                 {% if user.is_superuser %}
                     <a class="nav-link" href="{% url 'admin_dashboard' %}">
-                        <i class="bi bi-shield-lock"></i> Dashboard
+                        <i class="bi bi-shield-lock"></i>Admin Dashboard
                     </a>
                     <a class="nav-item nav-link" href="{% url 'courses_management' %}">Courses</a>
                     <a class="nav-item nav-link" href="{% url 'students_management' %}">Students</a>
                     
                 {% else %}
                     <a class="nav-link" href="{% url 'dashboard' %}">Student Dashboard</a>
+                    <a class="nav-link" href="{% url 'my_course' %}">My Courses</a>
                     <a class="nav-link" href="{% url 'course_registration' %}">Enrollment</a>
                 {% endif %}
                 <a class="nav-link" href="{% url 'notifications' %}">
