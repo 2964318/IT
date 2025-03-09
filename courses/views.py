@@ -15,6 +15,10 @@ def home(request):
 
 @login_required
 def dashboard(request):
+    return render(request, 'dashboard.html')
+
+@login_required
+def my_course(request):
     enrolled_courses = Enrollment.objects.filter(student=request.user)\
         .select_related('course')
     
@@ -34,13 +38,13 @@ def dashboard(request):
         ('5', '4:00 PM - 6:00 PM')
     ]
     
-    return render(request, 'dashboard.html', {
+    return render(request, 'my_course.html', {
         'enrolled_courses': enrolled_courses,
         'available_courses': available_courses,
         'time_slots': time_slots,
         'days': days
     })
-
+   
 @login_required
 def course_registration(request):
     # 获取所有课程及其注册信息
@@ -69,6 +73,7 @@ def course_registration(request):
     return render(request, 'course_registration.html', {
         'registration_table': registration_table
     })
+
 
 @login_required
 def course_detail(request, course_id):
@@ -115,7 +120,8 @@ def enroll_course(request, course_id):
     except Exception as e:
         messages.error(request, "Enrollment failed")
 
-    return redirect('dashboard')
+    #return redirect('dashboard')
+    return redirect('my_course')
         
 @login_required
 @transaction.atomic
@@ -135,7 +141,8 @@ def drop_course(request, enrollment_id):
     except Exception as e:
         messages.error(request, "Failed to drop course")
 
-    return redirect('dashboard')
+    #return redirect('dashboard')
+    return redirect('my_course')
 
 @login_required
 def notifications(request):
