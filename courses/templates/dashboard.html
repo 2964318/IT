@@ -1,101 +1,58 @@
-<!-- templates/dashboard.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="container mt-4">
-    <div class="card mb-4 shadow">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0">My Course Schedule</h3>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-bordered mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th style="width: 15%">Time</th>
-                            <th style="width: 17%">Monday</th>
-                            <th style="width: 17%">Tuesday</th>
-                            <th style="width: 17%">Wednesday</th>
-                            <th style="width: 17%">Thursday</th>
-                            <th style="width: 17%">Friday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for time_slot in time_slots %}
-                        <tr>
-                            <td class="align-middle">{{ time_slot.1 }}</td>
-                            {% for day in days %}
-                            <td>
-                                {% with day_slot=day|add:" "|add:time_slot.1 %}
-                                {% for course in enrolled_courses %}
-                                    {% if course.course.schedule == day_slot %}
-                                    <div class="p-2 border">
-                                        <div class="fw-bold">
-                                            <a href="{% url 'course_detail' course.course.id %}" 
-                                                class="text-decoration-none">
-                                                {{ course.course.name }}
-                                            </a>
-                                        </div>
-                                        <div class="small">
-                                            {{ course.course.code }}<br>
-                                            {{ course.course.teacher }}<br>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                                {% endwith %}
-                            </td>
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <h2 class="text-left">Dashboard</h2>
+    <div class="list-group">
 
-    <!-- Available Courses Section -->
-    <div class="card shadow">
-        <div class="card-header bg-success text-white">
-            <h3 class="mb-0">Available Courses</h3>
-        </div>
-        <div class="card-body">
-            {% if available_courses %}
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                {% for course in available_courses %}
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{% url 'course_detail' course.id %}" 
-                                   class="text-decoration-none">
-                                    {{ course.name }}
-                                </a>
-                            </h5>
-                            <div class="card-text">
-                                <p class="mb-1">
-                                    <span class="badge bg-secondary">
-                                        {{ course.code }}
-                                    </span>
-                                    <span class="badge bg-warning text-dark ms-2">
-                                        Seats: {{ course.available_seats }}/{{ course.capacity }}
-                                    </span>
-                                </p>
-                                <p class="text-muted small">
-                                    {{ course.schedule }}<br>
-                                    Credits: {{ course.credits }}<br>
-                                    Teacher: {{ course.teacher }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+        <!-- My Data -->
+        <div class="list-group-item d-flex align-items-center">
+            <div class="me-3">
+                <i class="bi bi-person-circle fs-2 text-primary"></i>
             </div>
-            {% else %}
-            <div class="alert alert-info">No available courses found.</div>
-            {% endif %}
+            <div class="flex-grow-1">
+                <h5 class="mb-1">My Data</h5>
+                <p class="mb-1 text-muted">View and update your personal information.</p>
+            </div>
+            <a href="{% url 'account_settings' %}" class="btn btn-primary">Skip</a>
         </div>
+
+        <!-- Enrollment -->
+        <div class="list-group-item d-flex align-items-center">
+            <div class="me-3">
+                <i class="bi bi-journal-bookmark-fill fs-2 text-success"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="mb-1">Enrollment</h5>
+                <p class="mb-1 text-muted">Enroll in courses, manage your current course registrations, and drop courses if necessary.</p>
+            </div>
+            <a href="{% url 'course_registration' %}" class="btn btn-primary">Skip</a>
+        </div>
+
+        <!-- View My Course -->
+        <div class="list-group-item d-flex align-items-center">
+            <div class="me-3">
+                <i class="bi bi-calendar3 fs-2 text-info"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="mb-1">View My Course</h5>
+                <p class="mb-1 text-muted">Access your weekly course schedule and detailed course information.</p>
+            </div>
+            <a href="{% url 'my_course' %}" class="btn btn-primary">Skip</a>
+        </div>
+
+        <!-- To Do List -->
+        <div class="list-group-item d-flex align-items-center">
+            <div class="me-3">
+                <i class="bi bi-list-task fs-2 text-danger"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="mb-1">To Do List</h5>
+                <p class="mb-1 text-muted">Check the latest notifications.</p>
+            </div>
+            <a href="{% url 'notifications' %}" class="btn btn-primary">Skip</a>
+        </div>
+
     </div>
 </div>
 {% endblock %}
