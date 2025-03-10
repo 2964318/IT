@@ -15,8 +15,13 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
     {#    <!-- 本地加载 CSS -->#}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<!-- 引入 Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 </head>
-<body class="bg-light">
+{#<body class="bg-light">#}
+{#<body class="{% block body_class %}default-bg{% endblock %}">#}
+<body class="{% block body_class %}default-bg{% endblock %}">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="/">Course System</a>
@@ -26,26 +31,25 @@
                     <a class="nav-link" href="{% url 'admin_dashboard' %}">
                         <i class="bi bi-shield-lock"></i>Admin Dashboard
                     </a>
-                    <a class="nav-item nav-link" href="{% url 'courses_management' %}">Courses</a>
-                    <a class="nav-item nav-link" href="{% url 'students_management' %}">Students</a>
+                    <a class="nav-item nav-link" href="{% url 'courses_management' %}"><i class="bi bi-calendar2"></i> Courses</a>
+                    <a class="nav-item nav-link" href="{% url 'students_management' %}"><i class="bi bi-people"></i> Students</a>
                     
                 {% else %}
-                    <a class="nav-link" href="{% url 'dashboard' %}">Student Dashboard</a>
-                    <a class="nav-link" href="{% url 'my_course' %}">My Courses</a>
-                    <a class="nav-link" href="{% url 'course_registration' %}">Enrollment</a>
+                    <a class="nav-link" href="{% url 'dashboard' %}"><i class="bi bi-grid"></i> Student Dashboard</a>
+                    <a class="nav-link" href="{% url 'my_course' %}"><i class="bi bi-calendar2-heart"></i> My Courses</a>
+                    <a class="nav-link" href="{% url 'course_registration' %}"><i class="bi bi-calendar-check-fill"></i> Enrollment</a>
                 {% endif %}
                 <a class="nav-link" href="{% url 'notifications' %}">
-                    Notifications
-                    <i class="bi bi-bell"></i>
+                    <i class="bi bi-bell"></i> Notifications
                     {% if unread_count > 0 %}
                         <span class="badge bg-danger">{{ unread_count }}</span>
                     {% endif %}
                 </a>
-                <a class="nav-link" href="{% url 'account_settings' %}">Account Settings</a>
+                <a class="nav-link" href="{% url 'account_settings' %}"><i class="bi bi-person-fill-gear"></i> Account Settings</a>
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             {% else %}
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-link" href="{% url 'login' %}"> <i class="bi bi-person"></i> Login</a>
+                <a class="nav-link" href="{% url 'register' %}"> <i class="bi bi-person-fill-add"></i> Register</a>
             {% endif %}
         </div>
     </div>

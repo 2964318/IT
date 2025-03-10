@@ -19,34 +19,42 @@
 {#</div>#}
 {#{% endblock %}#}
 {% extends 'base.html' %}
+{% block body_class %}custom-bg-soft-green{% endblock %}
 
 {% block title %}Register{% endblock %}
 
 {% block content %}
     <div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Register</div>
-            <div class="card-body">
-                <!-- 显示错误信息 -->
-                <div id="registerAlert" class="alert alert-danger d-none"></div>
-                <form id="registerForm" method="post">
-                    {% csrf_token %}
-                    <label>Username:</label>
-                    <input type="text" name="username" id="username">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-person-fill-add"></i> Register</div>
+                <div class="card-body">
+                    <!-- 显示错误信息 -->
+                    <div id="registerAlert" class="alert alert-danger d-none"></div>
+                    <form id="registerForm" method="post">
+                        {% csrf_token %}
 
-                    <label>Password:</label>
-                    <input type="password" name="password1" id="password1">
+                        <div class="mb-3">
+                            <label class="form-label">Username:</label>
+                            <input type="text" class="form-control" name="username" id="username">
+                        </div>
 
-                    <label>Confirm Password:</label>
-                    <input type="password" name="password2" id="password2">
+                        <div class="mb-3">
+                            <label class="form-label">Password:</label>
+                            <input type="password" class="form-control" name="password1" id="password1">
+                        </div>
 
-                    <button type="submit" class="btn btn-success mt-3">Register</button>
-                </form>
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password:</label>
+                            <input type="password" class="form-control" name="password2" id="password2">
+                        </div>
 
+                        <button type="submit" class="btn btn-success mt-3">Register</button>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

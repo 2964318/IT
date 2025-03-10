@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
+
 <div class="jumbotron text-center">
-    <h1 class="display-4">Welcome to Course System</h1>
-    <p class="lead">Simple student course selection system</p>
+    <h1 class="display-4">Welcome to Course System!</h1>
+    <p class="lead">Course System</p>
+    <img src="{% static 'images/Welcome.jpg' %}" alt="Welcome Image" class="img-fluid my-4" style="max-width: 200px;">
     <hr class="my-4">
     <p>Please login or register to continue</p>
     <div class="mt-4">

@@ -12,12 +12,12 @@
 {#</div>#}
 {#{% endblock %}#}
 {% extends 'base.html' %}
-
+{% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block title %}Account Settings{% endblock %}
 
 {% block content %}
 <div class="card">
-    <div class="card-header">Account Settings</div>
+    <div class="card-header"><i class="bi bi-person-fill-gear"></i> Account Settings</div>
     <div class="card-body">
         <p>Username: {{ user.username }}</p>
         <!-- 让 "Change Password" 触发 jQuery 事件，而不是直接跳转 -->

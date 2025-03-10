@@ -1,6 +1,6 @@
 <!-- courses/templates/admin/course_form.html -->
 {% extends "base.html" %}
-
+{% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
 <div class="container mt-4">
     <h2>{% if form.instance.id %}Edit{% else %}Add{% endif %} Course</h2>

@@ -2,15 +2,39 @@
 from django import forms
 from .models import Course, CustomUser, Notification
 
+# class CourseForm(forms.ModelForm):
+#     class Meta:
+#         model = Course
+#         fields = '__all__'
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = '__all__'
+        widgets = {
+            'schedule': forms.Select(attrs={'class': 'form-select'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'code': forms.TextInput(attrs={'class': 'form-control'}),
+            'teacher': forms.TextInput(attrs={'class': 'form-control'}),
+            'credits': forms.NumberInput(attrs={'class': 'form-control'}),
+            'capacity': forms.NumberInput(attrs={'class': 'form-control'}),
+            'enrolled_students': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
 
+
+# class UserEditForm(forms.ModelForm):
+#     class Meta:
+#         model = CustomUser
+#         fields = ['username', 'email', 'is_active']
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'is_active']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
         
 class NotificationForm(forms.ModelForm):
     TARGET_CHOICES = [
