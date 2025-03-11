@@ -17,7 +17,10 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Class</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Days and Times</th>
+                            <th scope="col">Credits</th>
+                            <th scope="col">Teacher</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -25,8 +28,15 @@
                     <tbody>
                         {% for row in registration_table %}
                         <tr>
-                            <td>{{ row.class }}</td>
+                            <td>
+                                <a href="{% url 'course_detail' row.course.id %}" class="text-decoration-none">
+                                    {{ row.class }}
+                                </a>
+                            </td>
+                            <td>{{ row.id }}</td>
                             <td>{{ row.days_times }}</td>
+                            <td>{{ row.credits }}</td>
+                            <td>{{ row.teacher }}</td>
                             <td>
                                 <span class="badge {% if row.status == 'Enrolled' %}bg-success{% else %}bg-secondary{% endif %}">
                                     {{ row.status }}
