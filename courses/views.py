@@ -63,11 +63,14 @@ def course_registration(request):
         
         registration_table.append({
             'class': course.name,
+            'id':course.code,
             'days_times': days_times,
+            'credits':course.credits,
+            'teacher':course.teacher,
             'status': status,
             'action': action,
             'course': course,
-            'enrollment': enrollment,  # 这里可能是 None
+            'enrollment': enrollment,  
         })
 
     return render(request, 'course_registration.html', {
