@@ -79,6 +79,8 @@ def course_registration(request):
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     enrollment = Enrollment.objects.filter(course=course, student=request.user).first()
+    enrolled_students = Enrollment.objects.filter(course=course).count()
+    available_seats = course.capacity - enrolled_students
     is_enrolled = Enrollment.objects.filter(
         student=request.user, 
         course=course
@@ -87,7 +89,8 @@ def course_detail(request, course_id):
     return render(request, 'course_detail.html', {
         'course': course,
         'enrollment': enrollment,
-        'is_enrolled': is_enrolled
+        'is_enrolled': is_enrolled,
+        'available_seats': available_seats,
     })
     
 @login_required
