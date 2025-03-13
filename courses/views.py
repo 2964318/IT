@@ -7,11 +7,13 @@ from .utils import notify_user, notify_admins
 from django.db.models import Count, F, Q
 
 def home(request):
+    notifications = Notification.objects.order_by('-created_at')[:5]   # 获取最新 5 条通知
+    #return render(request, 'welcome.html', {'notifications': notifications})
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return redirect('admin_dashboard')
         return redirect('dashboard')
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'notifications': notifications})
 
 @login_required
 def dashboard(request):
@@ -70,7 +72,7 @@ def course_registration(request):
             'status': status,
             'action': action,
             'course': course,
-            'enrollment': enrollment,  
+            'enrollment': enrollment,  # 这里可能是 None
         })
 
     return render(request, 'course_registration.html', {
