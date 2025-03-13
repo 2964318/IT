@@ -92,24 +92,28 @@ def send_notification(request):
         form = NotificationForm(request.POST)
         if form.is_valid():
             target_type = form.cleaned_data['target_type']
+            title = form.cleaned_data['title']  # 获取 title 字段
             message = form.cleaned_data['message']
             course = form.cleaned_data.get('course')
 
             try:
                 with transaction.atomic():
-                    # Get target users
+                    # 获取目标用户
                     if target_type == 'all':
                         users = CustomUser.objects.filter(is_active=True)
                     else:
                         users = CustomUser.objects.filter(
                             enrollment__course=course
                         ).distinct()
-                        message = course.code + " - " + course.name + ": " + message
+                        title = f"{course.code} - {course.name}: {title}"  # 格式化消息
 
-                    # Create notifications in bulk
+                    
+
+                    # 批量创建通知
                     notifications = [
                         Notification(
                             user=user,
+                            title=title,  # 添加 title 字段
                             message=message,
                             is_admin=True
                         ) for user in users
