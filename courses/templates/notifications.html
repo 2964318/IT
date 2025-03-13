@@ -1,7 +1,6 @@
 <!-- templates/notifications.html -->
 {% extends 'base.html' %}
-{% block body_class %}custom-bg-soft-blue{% endblock %}
-#加载static
+{% block body_class %}custom-bg-soft-blue{% endblock %} #加载static
 {% load static %}
 {% block content %}
 
@@ -25,11 +24,12 @@
                 <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-start py-3 {% if not notification.is_read %}list-group-item-warning{% endif %}"
                    data-bs-toggle="tooltip">
                     <div class="ms-2 me-auto">
-                        <div class="d-flex align-items-center mb-1">
-                            <i class="bi {% if notification.is_admin %}bi-shield-fill-exclamation{% else %}bi-info-circle{% endif %} me-2 text-{% if notification.is_admin %}danger{% else %}primary{% endif %}"></i>
-                            <span class="fw-bold">{{ notification.message }}</span>
-                        </div>
-                        <small class="text-muted">
+                        <!-- 标题 -->
+                        <div class="fw-bold fs-5">{{ notification.title }}</div>
+                        <!-- 内容 -->
+                        <div class="text-muted fs-6 mb-1">{{ notification.message }}</div>
+                        <!-- 时间 -->
+                        <small class="text-muted fs-7">
                             {{ notification.created_at|date:"M d, Y H:i" }}
                         </small>
                     </div>
