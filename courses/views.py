@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Course, Enrollment, Notification
 from .utils import notify_user, notify_admins
 from django.db.models import Count, F, Q
+from django.http import JsonResponse
+from django.contrib.messages import get_messages
 
 def home(request):
     notifications = Notification.objects.order_by('-created_at')[:5]   # 获取最新 5 条通知
@@ -18,19 +20,18 @@ def home(request):
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
-
 @login_required
 def my_course(request):
     enrolled_courses = Enrollment.objects.filter(student=request.user)\
         .select_related('course')
-    
+
     available_courses = Course.objects.exclude(
         enrollment__student=request.user
     ).annotate(
         enrolled_count=Count('enrollment'),
         available_seats=F('capacity') - F('enrolled_count')
     )
-    
+
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     time_slots = [
         ('1', '8:00 AM - 10:00 AM'),
@@ -39,14 +40,19 @@ def my_course(request):
         ('4', '2:00 PM - 4:00 PM'),
         ('5', '4:00 PM - 6:00 PM')
     ]
-    
+
+    # **从 session 读取 messages 并重新加入 Django messages**
+    session_messages = request.session.pop('messages', [])
+    for msg in session_messages:
+        messages.success(request, msg)  # 重新加入 Django messages
+
     return render(request, 'my_course.html', {
         'enrolled_courses': enrolled_courses,
         'available_courses': available_courses,
         'time_slots': time_slots,
         'days': days
     })
-   
+
 @login_required
 def course_registration(request):
     # 获取所有课程及其注册信息
@@ -97,40 +103,33 @@ def course_detail(request, course_id):
         'is_enrolled': is_enrolled,
         'available_seats': available_seats,
     })
-    
 @login_required
 @transaction.atomic
 def enroll_course(request, course_id):
+    # 清空旧的 messages，防止错误信息残留
+    storage = get_messages(request)
+    list(storage)  # 读取并清空之前的 messages
+
     course = get_object_or_404(Course, id=course_id)
     user = request.user
+
     if Enrollment.objects.filter(student=user, course=course).exists():
         messages.warning(request, "You are already enrolled in this course")
         return redirect('course_detail', course_id=course_id)
+
     if course.enrolled_students >= course.capacity:
         messages.error(request, "This course is already full")
-        notify_admins(f"Course {course.code} is full")
-        return redirect('course_detail', course_id=course_id)
-
-    existing_schedules = user.enrollment_set.values_list('course__schedule', flat=True)
-    if course.schedule in existing_schedules:
-        messages.error(request, "Schedule conflict detected")
         return redirect('course_detail', course_id=course_id)
 
     try:
         Enrollment.objects.create(student=user, course=course)
         course.enrolled_students += 1
         course.save()
-        
-        notify_user(request.user, f"Enrolled in {course.code}")
-        notify_admins(f"New enrollment: {request.user} in {course.code} - {course.name}")
-        
         messages.success(request, "Enrollment successful")
     except Exception as e:
-        messages.error(request, "Enrollment failed")
+        messages.error(request, f"Enrollment failed: {str(e)}")
 
-    #return redirect('dashboard')
     return redirect('my_course')
-        
 @login_required
 @transaction.atomic
 def drop_course(request, enrollment_id):
@@ -141,17 +140,18 @@ def drop_course(request, enrollment_id):
         enrollment.delete()
         course.enrolled_students -= 1
         course.save()
-        
-        notify_user(request.user, f"Dropped course: {course.code} - {course.name}")
-        notify_admins(f"User {request.user} dropped {course.code} - {course.name}")
-        
+
         messages.success(request, "Course dropped successfully")
+        print("Message Added: Course dropped successfully")
+
+        # **只存字符串，而不是 `Message` 对象**
+        request.session['messages'] = [msg.message for msg in get_messages(request)]
+
     except Exception as e:
-        messages.error(request, "Failed to drop course")
+        messages.error(request, f"Failed to drop course: {str(e)}")
+        print(f"Message Added: Failed to drop course - {str(e)}")
 
-    #return redirect('dashboard')
     return redirect('my_course')
-
 @login_required
 def notifications(request):
     Notification.objects.filter(
@@ -164,5 +164,7 @@ def notifications(request):
     return render(request, 'notifications.html', {
         'notifications': notifications
     })
+
+
     
     

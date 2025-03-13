@@ -1,5 +1,6 @@
 <!-- templates/course_detail.html -->
 {% extends 'base.html' %}
+{% load static %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
 <div class="container mt-4">
@@ -15,10 +16,10 @@
                     <dl class="row">
                         <dt class="col-sm-3">Schedule</dt>
                         <dd class="col-sm-9">{{ course.schedule }}</dd>
-                        
+
                         <dt class="col-sm-3">Credits</dt>
                         <dd class="col-sm-9">{{ course.credits }}</dd>
-                        
+
                         <dt class="col-sm-3">Teacher</dt>
                         <dd class="col-sm-9">{{ course.teacher }}</dd>
                     </dl>
@@ -38,7 +39,7 @@
                             {% if not is_enrolled %}
                             <form method="post" action="{% url 'enroll' course.id %}">
                                 {% csrf_token %}
-                                <button type="submit" 
+                                <button type="submit"
                                         class="btn btn-success w-100"
                                         {% if course.available_seats <= 0 %}disabled{% endif %}>
                                     Enroll Now
@@ -60,3 +61,5 @@
     </div>
 </div>
 {% endblock %}
+
+
