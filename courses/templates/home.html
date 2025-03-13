@@ -3,15 +3,65 @@
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
 
-<div class="jumbotron text-center">
-    <h1 class="display-4">Welcome to Course System!</h1>
-    <p class="lead">Course System</p>
-    <img src="{% static 'images/Welcome.jpg' %}" alt="Welcome Image" class="img-fluid my-4" style="max-width: 200px;">
-    <hr class="my-4">
-    <p>Please login or register to continue</p>
-    <div class="mt-4">
-        <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a>
-        <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>
+<ddiv class="jumbotron text-center" style="padding-top: 2rem; padding-bottom: 5rem;"">
+    <div class="container">
+        
+        <h1 class="display-4 text-primary mb-4">🎉 Welcome to Course System!</h1>
+        <p class="lead text-muted mb-4">An efficient platform for students and administrators to manage courses with ease!</p>
+        <hr class="my-4">
+
+        
+        <div class="row">
+            
+            <div class="col-md-8">
+                <!-- 学生功能 -->
+                <div class="card border-primary shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">📚 For Students</h5>
+                    </div>
+                    <div class="card-body text-start">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">✔ Browse and enroll in courses</li>
+                            <li class="mb-2">✔ View your schedule and track progress</li>
+                            <li>✔ Stay updated with important notifications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+                <div class="card border-success shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">🔧 For Administrators</h5>
+                    </div>
+                    <div class="card-body text-start">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">✔ Manage course listings and student enrollments</li>
+                            <li class="mb-2">✔ Send system-wide announcements</li>
+                            <li>✔ Ensure seamless course administration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                <img src="{% static 'images/Welcome.jpg' %}" alt="Welcome Image" class="img-fluid rounded-circle shadow" style="max-width: 300px;">
+            </div>
+        </div>
+
+        
+        <div class="mb-4 mt-5">
+            <h4 class="text-secondary mb-3">🚀 Join now and enhance your learning experience!</h4>
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-primary btn-lg px-4" href="{% url 'login' %}" role="button">Login</a>
+                <a class="btn btn-success btn-lg px-4" href="{% url 'register' %}" role="button">Register</a>
+            </div>
+        </div>
+
+        
+        <hr class="my-4">
+        <p class="text-muted">Please login or register to continue</p>
     </div>
 </div>
+
 {% endblock %}
