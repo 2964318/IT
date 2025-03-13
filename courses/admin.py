@@ -18,18 +18,19 @@ class NotificationAdminForm(forms.ModelForm):
 
     class Meta:
         model = Notification
-        fields = ['message', 'target_type', 'course']
+        fields = ['title','message', 'target_type', 'course']
 
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
     form = NotificationAdminForm
-    list_display = ['message', 'created_at']
+    list_display = ['title','message', 'created_at']
     exclude = ['user'] 
 
     def save_model(self, request, obj, form, change):
         target_type = form.cleaned_data.get('target_type')
         message = form.cleaned_data.get('message')
         course = form.cleaned_data.get('course')
+        title = form.cleaned_data.get('title')
 
         if target_type == 'course' and course:
             users = User.objects.filter(enrollment__course=course).distinct()
@@ -37,7 +38,10 @@ class NotificationAdmin(admin.ModelAdmin):
             users = User.objects.all()
 
         notifications = [
-            Notification(user=user, message=message)
+            Notification(
+                title=title,
+                user=user, 
+                message=message)
             for user in users
         ]
         Notification.objects.bulk_create(notifications)
