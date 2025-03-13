@@ -61,9 +61,18 @@ class NotificationForm(forms.ModelForm):
         })
     )
 
+    title = forms.CharField(  # 添加 title 字段
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter notification title'
+        }),
+        max_length=100,
+        required=True
+    )
+
     class Meta:
         model = Notification
-        fields = ['target_type', 'course', 'message']
+        fields = ['title', 'target_type', 'course', 'message']
         
     def clean(self):
         cleaned_data = super().clean()
