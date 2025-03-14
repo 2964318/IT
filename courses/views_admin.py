@@ -107,16 +107,18 @@ def send_notification(request):
                         ).distinct()
                         title = f"{course.code} - {course.name}: {title}"  # 格式化消息
 
+                    admins = CustomUser.objects.filter(is_superuser=True)
+                    all_users = users.union(admins)
                     
-
                     # 批量创建通知
                     notifications = [
                         Notification(
                             user=user,
-                            title=title,  # 添加 title 字段
+                            title=title,  
                             message=message,
-                            is_admin=True
-                        ) for user in users
+                            is_admin=True,
+                            is_global = False
+                        ) for user in all_users
                     ]
                     Notification.objects.bulk_create(notifications)
 
