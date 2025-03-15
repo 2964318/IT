@@ -113,6 +113,15 @@ def enroll_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     user = request.user
 
+    # 创建系统通知
+    Notification.objects.create(
+        user=user,
+        title=f"Enrolled in {course.code}",
+        message=f"You have successfully enrolled in {course.name}.",
+        is_admin=False,  # 系统通知，不是管理员通知
+        is_global=False  # 系统通知，不是全局通知
+    )
+
     if Enrollment.objects.filter(student=user, course=course).exists():
         messages.warning(request, "You are already enrolled in this course")
         return redirect('course_detail', course_id=course_id)
@@ -135,6 +144,14 @@ def enroll_course(request, course_id):
 def drop_course(request, enrollment_id):
     enrollment = get_object_or_404(Enrollment, id=enrollment_id, student=request.user)
     course = enrollment.course
+
+    Notification.objects.create(
+        user=request.user,
+        title=f"Dropped {course.code}",
+        message=f"You have successfully dropped {course.name}.",
+        is_admin=False,  # 用户通知
+        is_global=False  # 不是全局通知
+    )
 
     try:
         enrollment.delete()
