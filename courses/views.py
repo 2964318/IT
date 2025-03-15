@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.contrib.messages import get_messages
 
 def home(request):
-    notifications = Notification.objects.order_by('-created_at')[:5]   # 获取最新 5 条通知
+    notifications = Notification.objects.order_by('-created_at')[:5]   # Get the latest 5 notifications
     #return render(request, 'welcome.html', {'notifications': notifications})
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -64,7 +64,7 @@ def course_registration(request):
     # 将课程信息转换为表格格式
     registration_table = []
     for course in courses:
-        days_times = course.schedule  # 假设 schedule 字段存储了课程的时间安排
+        days_times = course.schedule
         enrollment = Enrollment.objects.filter(course=course, student=request.user).first()
         status = "Enrolled" if enrollment else "Not Enrolled"
         action = "Drop" if status == "Enrolled" else "Enroll"
@@ -78,7 +78,7 @@ def course_registration(request):
             'status': status,
             'action': action,
             'course': course,
-            'enrollment': enrollment,  # 这里可能是 None
+            'enrollment': enrollment,
         })
 
     return render(request, 'course_registration.html', {
@@ -106,9 +106,9 @@ def course_detail(request, course_id):
 @login_required
 @transaction.atomic
 def enroll_course(request, course_id):
-    # 清空旧的 messages，防止错误信息残留
+    # Empty old messages to prevent error messages from being left behind.
     storage = get_messages(request)
-    list(storage)  # 读取并清空之前的 messages
+    list(storage)
 
     course = get_object_or_404(Course, id=course_id)
     user = request.user

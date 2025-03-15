@@ -61,7 +61,7 @@ class NotificationForm(forms.ModelForm):
         })
     )
 
-    title = forms.CharField(  # 添加 title 字段
+    title = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Enter notification title'

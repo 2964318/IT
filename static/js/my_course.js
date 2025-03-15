@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
         messages.forEach(message => {
             console.log("Removing message:", message.innerText);
             message.style.opacity = "0";
-            setTimeout(() => message.remove(), 500); // 500ms 后完全移除
+            setTimeout(() => message.remove(), 500); // Completely removed after 500ms
         });
-    }, 3000); // 3秒后隐藏消息
+    }, 3000); // Hide message after 3 seconds
 });

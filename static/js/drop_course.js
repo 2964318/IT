@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("drop_course.js loaded ✅");
+    console.log("drop_course.js loaded");
 
     let dropButton = document.getElementById("drop-btn");
 
     if (dropButton) {
-        console.log("Drop button found ✅");
+        console.log("Drop button found ");
 
         dropButton.addEventListener("click", function () {
-            console.log("Drop button clicked ✅");
+            console.log("Drop button clicked ");
 
             let enrollmentId = this.getAttribute("data-enrollment-id");
             console.log("Enrollment ID:", enrollmentId);
@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({})
             })
             .then(response => {
-                console.log("Response received ✅", response);
+                console.log("Response received", response);
                 return response.json();
             })
             .then(data => {
-                console.log("Response data ✅", data);
+                console.log("Response data", data);
                 if (data.error) {
                     alert("Failed to drop course: " + data.error);
                 } else {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Fetch error:', error));
         });
     } else {
-        console.error("Drop button NOT found ❌");
+        console.error("Drop button NOT found");
     }
 });
 

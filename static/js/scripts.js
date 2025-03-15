@@ -1,16 +1,16 @@
 $(document).ready(function () {
     $("#registerForm").submit(function (e) {
-        e.preventDefault();  // 阻止页面刷新
+        e.preventDefault();  // Block page refresh
 
         $.ajax({
             url: "/register/",
             type: "POST",
-            data: $(this).serialize(),  // 获取表单数据
+            data: $(this).serialize(),  // Getting form data
             success: function (response) {
-                window.location.href = "/dashboard/";  // 注册成功，跳转
+                window.location.href = "/dashboard/";  // Successful registration, jump
             },
             error: function (xhr) {
-                $("#registerAlert").removeClass("d-none").text(xhr.responseText);  // 显示错误信息
+                $("#registerAlert").removeClass("d-none").text(xhr.responseText);  // Display error messages
             }
         });
     });
@@ -18,17 +18,17 @@ $(document).ready(function () {
 //login
 $(document).ready(function () {
     $("#loginForm").submit(function (e) {
-        e.preventDefault();  // 阻止表单默认提交（避免页面刷新）
+        e.preventDefault();
 
         $.ajax({
-            url: "/login/",  // Django 登录 URL
+            url: "/login/",  // Django Login URL
             type: "POST",
-            data: $(this).serialize(),  // 获取表单数据
+            data: $(this).serialize(),  // Getting form data
             success: function (response) {
-                window.location.href = response.redirect_url;  // 根据后端返回的 `redirect_url` 跳转
+                window.location.href = response.redirect_url;  // Jump based on the `redirect_url` returned by the backend.
             },
             error: function (xhr) {
-                $("#loginAlert").removeClass("d-none").text("Invalid username or password"); // 显示错误
+                $("#loginAlert").removeClass("d-none").text("Invalid username or password"); // error
             }
         });
     });
@@ -39,30 +39,30 @@ $(document).ready(function () {
         e.preventDefault();  // 阻止默认提交（防止页面刷新）
 
         $.ajax({
-            url: "/change-password/",  // Django 处理修改密码的 URL
+            url: "/change-password/",  // Django handles URLs for changing passwords
             type: "POST",
-            data: $(this).serialize(),  // 获取表单数据
+            data: $(this).serialize(),  // Getting form data
             success: function (response) {
                 alert("Password changed successfully! Redirecting...");
-                window.location.href = "/dashboard/";  // 修改成功后跳转
+                window.location.href = "/dashboard/";  // Jump after successful modification
             },
             error: function (xhr) {
-                $("#changePasswordAlert").removeClass("d-none").text("Password change failed. Please check your input.");  // 显示错误
+                $("#changePasswordAlert").removeClass("d-none").text("Password change failed. Please check your input.");  // display error message
             }
         });
     });
 });
 //account settings
 $(document).ready(function () {
-    // 💡 点击 Change Password 按钮，显示模态框
+    // Click the Change Password button to display the modal box
     $("#changePasswordBtn").click(function () {
         $("#changePasswordModal").modal("show");
     });
 
-    // 💡 处理 AJAX 提交密码修改请求
+    // Handling AJAX Submission of Password Change Requests
     $("#changePasswordForm").submit(function (e) {
-        e.preventDefault();  // 阻止默认表单提交
-        console.log("form submit");  // 检查事件是否触发
+        e.preventDefault();  // Blocking default form submission
+        console.log("form submit");  //Check if an event is triggered
 
         $.ajax({
             url: "/change-password/",
@@ -70,7 +70,7 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (response) {
                 alert("Password changed successfully!");
-                $("#changePasswordModal").modal("hide");  // 关闭弹窗
+                $("#changePasswordModal").modal("hide");  // Close pop-up window
             },
             error: function (xhr) {
                 $("#changePasswordError")

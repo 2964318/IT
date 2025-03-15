@@ -1,11 +1,11 @@
-以下是基于MySQL+Django+Bootstrap的学生选课系统基本的实现步骤和部分代码：
+The Course System
 
-### 一、环境准备
+### Environmental preparation
 ```bash
 pip install django mysqlclient
 ```
 
-### 二、项目结构
+### Project structure
 ```text
 course_system/
 ├── courses/
@@ -23,7 +23,7 @@ course_system/
          ···
 ```
 
-### 三、配置settings.py中的数据库连接
+### Configuring the database connection in settings.py
 ```
 DATABASES = {
     'default': {
@@ -38,8 +38,7 @@ DATABASES = {
 
 ```
 
-### 四、数据库模型设计（core/models.py）
-# 此处用代码设计好数据库表后，利用脚本（按照下面的重置数据库和建立新的admin账户步骤执行）可直接生成数据库表，无需手动配置数据库
+### Database model design (core/models.py)
 ```
 # users/models.py
 from django.contrib.auth.models import AbstractUser
@@ -111,22 +110,22 @@ class Notification(models.Model):
     is_global = models.BooleanField(default=False)  
 ```
 
-# 重置数据库和建立新的admin账户
-# 1. 删除所有迁移文件（如未生效可手动删除__pycache__下的除__init__.py以外的所有文件）
+# Reset the database and create a new admin account
+# 1. Delete all migration files (you can manually delete all files under __pycache__ except __init__.py if it doesn't take effect)
 Get-ChildItem -Path . -Recurse -Include 0*.py,0*.pyc | Remove-Item -Force
 
-# 2. 重置数据库
+# 2. Reset database
 mysql -u root -p -e "DROP DATABASE course_system_db; CREATE DATABASE course_system_db;"
 
-# 3. 生成迁移（先users后courses）
+# 3. Generate migrations (users before courses)
 python manage.py makemigrations users
 python manage.py makemigrations courses
 python manage.py makemigrations
 
-# 4. 强制应用迁移
+# 4. Forced Application Migration
 python manage.py migrate --fake-initial
 
-# 5. 创建管理员
+# 5. Create Admin
 # create admin
 python manage.py createsuperuser --username=admin --email=admin@example.com
 
@@ -137,12 +136,12 @@ Password (again):
 # change password
 python manage.py changepassword admin
 
-# 6.运行项目
+# 6.Run Projects
 python manage.py runserver
 
 
-### 五、其他
-# 往数据库里添加测试数据
+### test
+# Adding test data to the database
 ```
 python manage.py loaddata courses/fixtures/test_courses.json
 ```

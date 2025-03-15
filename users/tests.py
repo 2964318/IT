@@ -11,7 +11,7 @@ class AuthTests(TestCase):
             'password1': 'complexpassword123',
             'password2': 'complexpassword123'
         })
-        print(response.content)  # 打印页面返回内容
+        print(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(User.objects.filter(username='testuser').exists())
 

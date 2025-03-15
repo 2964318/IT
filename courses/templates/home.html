@@ -1,12 +1,13 @@
+{#<!-- course/templates/home.html -->#}
 {% extends 'base.html' %}
 {% load static %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
 
-<ddiv class="jumbotron text-center" style="padding-top: 2rem; padding-bottom: 5rem;"">
+<div class="jumbotron text-center" style="padding-top: 2rem; padding-bottom: 5rem;">
     <div class="container">
         
-        <h1 class="display-4 text-primary mb-4">🎉 Welcome to Course System!</h1>
+        <h1 class="display-4 text-primary mb-4"> Welcome to Course System!</h1>
         <p class="lead text-muted mb-4">An efficient platform for students and administrators to manage courses with ease!</p>
         <hr class="my-4">
 
@@ -51,7 +52,7 @@
 
         
         <div class="mb-4 mt-5">
-            <h4 class="text-secondary mb-3">🚀 Join now and enhance your learning experience!</h4>
+            <h4 class="text-secondary mb-3">Join now and enhance your learning experience!</h4>
             <div class="d-flex justify-content-center gap-3">
                 <a class="btn btn-primary btn-lg px-4" href="{% url 'login' %}" role="button">Login</a>
                 <a class="btn btn-success btn-lg px-4" href="{% url 'register' %}" role="button">Register</a>
