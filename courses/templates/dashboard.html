@@ -1,4 +1,3 @@
-{#<!-- courses/templates/dashboard.html -->#}
 {% extends 'base.html' %}
 {% block body_class %}custom-bg-soft-purple{% endblock %}
 {% block content %}
@@ -37,6 +36,7 @@
             </div>
             <div class="flex-grow-1">
                 <h5 class="mb-1">View My Course</h5>
+                <p class="mb-1 text-muted">Total Courses: {{ student_course_count }}</p>
                 <p class="mb-1 text-muted">Access your weekly course schedule and detailed course information.</p>
             </div>
             <a href="{% url 'my_course' %}" class="btn btn-primary">Skip</a>
@@ -49,7 +49,8 @@
             </div>
             <div class="flex-grow-1">
                 <h5 class="mb-1">To Do List</h5>
-                <p class="mb-1 text-muted">Check the latest notifications.</p>
+                <p class="mb-1 text-muted">Latest Notification: {{ latest_admin_notification.title }}</p>
+                <p class="mb-1 text-muted">Check all notifications.</p>
             </div>
             <a href="{% url 'notifications' %}" class="btn btn-primary">Skip</a>
         </div>

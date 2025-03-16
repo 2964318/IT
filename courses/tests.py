@@ -9,10 +9,12 @@ class CourseTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username='student1',
+            email='student1@example.com',
             password='testpass123',
         )
         self.admin = User.objects.create_superuser(
             username='admin',
+            email='admin@example.com',
             password='adminpass',
         )
         self.course = Course.objects.create(

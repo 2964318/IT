@@ -1,6 +1,6 @@
-/*美化导航栏*/
+/*Beautify navigation bar*/
 .navbar {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Increase shadow */
 }
 
 .navbar-brand {
@@ -19,9 +19,9 @@
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
 }
-/*Optimise button styles*/
+/*Optimize button style*/
 .btn-custom {
-    background: linear-gradient(45deg, #007bff, #0056b3); /* gradient background */
+    background: linear-gradient(45deg, #007bff, #0056b3); /* Gradient background */
     color: white;
     font-size: 16px;
     padding: 10px 20px;
@@ -33,7 +33,7 @@
     background: linear-gradient(45deg, #0056b3, #003d80);
     transform: scale(1.05);
 }
-/*Beautify message alert box*/
+/*Beautify the message prompt box*/
 .alert {
     border-radius: 8px;
     padding: 15px;
@@ -45,7 +45,7 @@
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
+/*Optimized form*/
 .table-custom {
     border-collapse: collapse;
     width: 100%;
@@ -61,7 +61,7 @@
 .table-custom tr:hover {
     background-color: #f5f5f5;
 }
-
+/*Responsive optimization*/
 @media (max-width: 768px) {
     .navbar-nav {
         text-align: center;
@@ -71,76 +71,76 @@
         width: 100%;
     }
 }
-
+/* Make all.card components look uniform */
 .card {
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;  /* Uniform round corners of the card */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  /* Add shadow */
     background: white;
     border: none;
 }
 
-/* Unified card title style */
+/* Uniform card header style */
 .card-header {
-    background: #007bff;
+    background: #007bff;  /* Uniform blue background */
     color: white;
     font-weight: bold;
     padding: 15px;
     font-size: 1.2rem;
 }
 
-/* Harmonisation of card content area styles */
+/* Uniform card content area style */
 .card-body {
     padding: 20px;
     font-size: 1rem;
 }
+/*Beautify the picture*/
 /* static/css/styles.css */
 .welcome-image {
     max-width: 200px;  /* Limit maximum width */
     display: block;
-    margin: 20px auto;  /* middle */
+    margin: 20px auto;  /* Mediate between two parties */
 }
-/*Custom page background colours*/
+/*Customize the page background color*/
 .default-bg {
-    background-color: #f8f9fa;
+    background-color: #f8f9fa;  /* Default color:Bootstrap bg-light */
 }
 
-/* white */
+/* A lighter white */
 .custom-bg-light {
     background-color: #fcfcfc;
 }
 
-/* blue2 */
+/* Soft light blue */
 .custom-bg-soft-blue {
-    background-color: #e6f2ff;
+    background-color: #e6f2ff; /* Slightly deeper than #f0f8ff */
 }
 
-/* green */
+/* Soft light green */
 .custom-bg-soft-green {
-    background-color: #e8f5e9;
+    background-color: #e8f5e9; /* Slightly deeper than #f3faf3 */
 }
 
-/* yellow */
+/* Soft light yellow */
 .custom-bg-soft-yellow {
-    background-color: #fff9e6;
+    background-color: #fff9e6; /* Slightly deeper than #fffaf0 */
 }
 
-/* pink */
+/* Soft light pink */
 .custom-bg-soft-pink {
-    background-color: #ffe6f2;
+    background-color: #ffe6f2; /* Gentle light pink */
 }
 
-/* purple */
+/* Soft light purple */
 .custom-bg-soft-purple {
-    background-color: #f3e6ff;
+    background-color: #f3e6ff; /* Slightly deeper than #f0e6ff */
 }
 
-/* grey */
+/* Soft light gray */
 .custom-bg-soft-gray {
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Gentle gray, not too dark */
 }
 
-/* blue */
+/* Slightly deeper light blue-gray */
 .custom-bg-soft-blue-gray {
-    background-color: #e6eff1;
+    background-color: #e6eff1; /* Your preferred background color */
 }
-
