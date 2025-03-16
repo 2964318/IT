@@ -120,6 +120,16 @@ def enroll_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     user = request.user
 
+    # Gets the courses selected by the user
+    enrolled_courses = Enrollment.objects.filter(student=user).select_related('course')
+
+    # Check for course schedule conflicts
+    for enrollment in enrolled_courses:
+        existing_course = enrollment.course
+        if course.schedule == existing_course.schedule:  # Suppose course time is a string
+            messages.error(request, f"Course conflict! {course.name} conflicts with {existing_course.name}.")
+            return redirect('course_detail', course_id=course_id)
+
     notify_user(user,
                 f"Enrolled in {course.name}",
                 f"You have successfully enrolled in {course.name}-{course.code}.",
