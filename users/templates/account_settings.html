@@ -1,5 +1,5 @@
-{#<!-- users/templates/account_settings.html -->#}
 {% extends 'base.html' %}
+{% load static %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block title %}Account Settings{% endblock %}
 
@@ -9,12 +9,18 @@
     <div class="card-body">
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
-{# Make Change Password trigger jQuery event#}
-        <button id="changePasswordBtn" class="btn btn-warning">Change Password</button>
+        
+        <div class="d-flex gap-2">
+            <button id="changePasswordBtn" class="btn btn-warning">Change Password</button>
+            
+            {% if not user.is_superuser %}
+                <button id="deactivateAccountBtn" class="btn btn-danger">Deactivate Account Request</button>
+            {% endif %}
+        </div>
     </div>
 </div>
 
-<!-- Modal: Password change pop-up window -->
+<!-- Password change mode box -->
 <div id="changePasswordModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -44,4 +50,23 @@
         </div>
     </div>
 </div>
+
+<!-- Disable the account confirmation mode box -->
+<div id="deactivateAccountModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Account Deactivation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to deactivate your account?</p>
+                <p>After confirmation, the system automatically sends an application to the administrator.</p>
+                <button id="confirmDeactivateBtn" class="btn btn-danger">Yes, Deactivate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/account_settings.js' %}"></script>
 {% endblock %}

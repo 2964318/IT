@@ -5,12 +5,12 @@ $(document).ready(function () {
         $.ajax({
             url: "/register/",
             type: "POST",
-            data: $(this).serialize(),  // Getting form data
+            data: $(this).serialize(),  // Get form data
             success: function (response) {
-                window.location.href = "/dashboard/";  // Successful registration, jump
+                window.location.href = "/dashboard/";  // Registration successful, jump
             },
             error: function (xhr) {
-                $("#registerAlert").removeClass("d-none").text(xhr.responseText);  // Display error messages
+                $("#registerAlert").removeClass("d-none").text(xhr.responseText);  // error message
             }
         });
     });
@@ -18,17 +18,17 @@ $(document).ready(function () {
 //login
 $(document).ready(function () {
     $("#loginForm").submit(function (e) {
-        e.preventDefault();
+        e.preventDefault();  // Prevent form submission by default (avoid page refreshes)
 
         $.ajax({
-            url: "/login/",  // Django Login URL
+            url: "/login/",  // Django login URL
             type: "POST",
-            data: $(this).serialize(),  // Getting form data
+            data: $(this).serialize(),  // Get form data
             success: function (response) {
-                window.location.href = response.redirect_url;  // Jump based on the `redirect_url` returned by the backend.
+                window.location.href = response.redirect_url;  // Jump according to 'redirect_url' returned by the backend
             },
             error: function (xhr) {
-                $("#loginAlert").removeClass("d-none").text("Invalid username or password"); // error
+                $("#loginAlert").removeClass("d-none").text("Invalid username or password"); // Display error
             }
         });
     });
@@ -36,18 +36,18 @@ $(document).ready(function () {
 //change password
 $(document).ready(function () {
     $("#changePasswordForm").submit(function (e) {
-        e.preventDefault();  // 阻止默认提交（防止页面刷新）
+        e.preventDefault();  // Block default commits (prevents page refreshes)
 
         $.ajax({
-            url: "/change-password/",  // Django handles URLs for changing passwords
+            url: "/change-password/",  
             type: "POST",
-            data: $(this).serialize(),  // Getting form data
+            data: $(this).serialize(),  // Get form data
             success: function (response) {
                 alert("Password changed successfully! Redirecting...");
-                window.location.href = "/dashboard/";  // Jump after successful modification
+                window.location.href = "/dashboard/";  // After the modification is successful, jump
             },
             error: function (xhr) {
-                $("#changePasswordAlert").removeClass("d-none").text("Password change failed. Please check your input.");  // display error message
+                $("#changePasswordAlert").removeClass("d-none").text("Password change failed. Please check your input.");  
             }
         });
     });
@@ -59,10 +59,10 @@ $(document).ready(function () {
         $("#changePasswordModal").modal("show");
     });
 
-    // Handling AJAX Submission of Password Change Requests
+    // Handle AJAX submit password change requests
     $("#changePasswordForm").submit(function (e) {
-        e.preventDefault();  // Blocking default form submission
-        console.log("form submit");  //Check if an event is triggered
+        e.preventDefault();  // Prevents default form submission
+        console.log("form submit");  // Check whether the event is triggered
 
         $.ajax({
             url: "/change-password/",
@@ -70,7 +70,7 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (response) {
                 alert("Password changed successfully!");
-                $("#changePasswordModal").modal("hide");  // Close pop-up window
+                $("#changePasswordModal").modal("hide");  // Close popup
             },
             error: function (xhr) {
                 $("#changePasswordError")

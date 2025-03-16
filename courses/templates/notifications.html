@@ -1,6 +1,6 @@
-<!-- courses/templates/notifications.html -->
+<!-- templates/notifications.html -->
 {% extends 'base.html' %}
-{% block body_class %}custom-bg-soft-yellow{% endblock %} #加载static
+{% block body_class %}custom-bg-soft-blue{% endblock %} 
 {% load static %}
 {% block content %}
 
@@ -28,7 +28,7 @@
                         <div class="fw-bold fs-5">{{ notification.title }}</div>
                         <!-- message -->
                         <div class="text-muted fs-6 mb-1">{{ notification.message }}</div>
-                        <!-- time -->
+                        <!-- date -->
                         <small class="text-muted fs-7">
                             {{ notification.created_at|date:"M d, Y H:i" }}
                         </small>
@@ -66,6 +66,7 @@
 {% endblock %}
 
 {% block extra_js %}
+
 <script src="{% static 'js/notifications.js' %}"></script>
 
 {% endblock %}

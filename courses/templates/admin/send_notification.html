@@ -1,4 +1,4 @@
-<!-- courses/templates/admin/send_notification.html -->
+<!-- templates/admin/send_notification.html -->
 {% extends 'base.html' %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 #加载static
@@ -28,10 +28,17 @@
                         </div>
                     </div>
 
+
                     <!-- Course Selection -->
                     <div class="mb-4" id="courseSelection" style="display: none;">
-                        <label class="form-label fw-bold">Course:</label>
+                        <label class="form-label fw-bold">Select Course:</label>
                         {{ form.course }}
+                    </div>
+
+                    <!-- Recipient (Specific User) -->
+                    <div class="mb-4" id="recipientSelection" style="display: none;">
+                        <label class="form-label fw-bold">Select User:</label>
+                        {{ form.specific }}
                     </div>
 
                     <!-- Title Field -->
@@ -52,6 +59,7 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
 {% block extra_js %}
     <script src="{% static 'js/send_notification.js' %}"></script>

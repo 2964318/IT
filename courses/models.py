@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from users.models import CustomUser
+from users.models import Users
 
 class Course(models.Model):
     SCHEDULE_CHOICES = [
@@ -47,13 +47,13 @@ class Course(models.Model):
         return self.name
 
 class Enrollment(models.Model):
-    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    student = models.ForeignKey(Users, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     enrolled_at = models.DateTimeField(auto_now_add=True)
     
 class Notification(models.Model):
     title = models.CharField(max_length=100, default="Notification") 
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
     message = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)

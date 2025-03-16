@@ -81,12 +81,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'course_system_db',      
         'USER': 'root',                  
-        'PASSWORD': '123456',
+        'PASSWORD': '20011015',
         'HOST': '127.0.0.1',
         'PORT': '3306', 
     }
 }
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.Users'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'

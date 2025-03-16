@@ -8,15 +8,16 @@ class AuthTests(TestCase):
     def test_user_registration(self):
         response = self.client.post(reverse('register'), {
             'username': 'testuser',
+            'email': 'testuser@example.com',
             'password1': 'complexpassword123',
             'password2': 'complexpassword123'
         })
-        print(response.content)
+        print(response.content)  # Print page return content
         self.assertEqual(response.status_code, 200)
         self.assertTrue(User.objects.filter(username='testuser').exists())
 
     def test_user_login(self):
-        User.objects.create_user(username='testuser', password='testpass123')
+        User.objects.create_user(username='testuser',email='testuser@example.com', password='testpass123')
         response = self.client.post(reverse('login'), {
             'username': 'testuser',
             'password': 'testpass123'
@@ -25,7 +26,7 @@ class AuthTests(TestCase):
         self.assertTrue('_auth_user_id' in self.client.session)
 
     def test_password_change(self):
-        user = User.objects.create_user(username='testuser', password='oldpassword123')
+        user = User.objects.create_user(username='testuser',email='testuser@example.com', password='oldpassword123')
         self.client.login(username='testuser', password='oldpassword123')
 
         response = self.client.post(reverse('change_password'), {
@@ -36,8 +37,8 @@ class AuthTests(TestCase):
 
         user.refresh_from_db()
 
-        # 断言密码成功修改
+        # The password was successfully changed. Procedure
         self.assertTrue(user.check_password('newcomplexpass123'))
 
-        # 修改测试代码，使其匹配 Django 视图的返回内容
+        # Modify the test code to match what the Django view returns
         self.assertJSONEqual(response.content, {"message": "Password changed successfully"})

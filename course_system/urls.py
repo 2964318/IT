@@ -12,12 +12,12 @@ from courses.views_admin import (
     courses_management,
     students_management
 )
-from users.views import account_settings, CustomLoginView, register_view, custom_logout, change_password
+from users.views import account_settings, CustomLoginView, register_view, custom_logout, change_password,request_deactivate_account
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/courses/', courses_management, name='courses_management'),  # 课程管理
-    path('admin/students/', students_management, name='students_management'),  # 学生管理
+    path('admin/courses/', courses_management, name='courses_management'),  # Course management
+    path('admin/students/', students_management, name='students_management'),  # Student management
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     path('admin/courses/edit/<int:course_id>/', edit_course, name='edit_course'),
     path('admin/course/delete/<int:course_id>/', delete_course, name='delete_course'),
@@ -36,6 +36,8 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', custom_logout, name='logout'),
     path('change-password/', change_password, name='change_password'),
+    path("request_deactivate_account/", request_deactivate_account, name="request_deactivate_account"),
+
     
     path('course/<int:course_id>/', course_detail, name='course_detail'),
     path('enroll/<int:course_id>/', enroll_course, name='enroll'),
