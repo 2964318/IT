@@ -133,7 +133,7 @@ USE_TZ = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
 
-# 开发环境下，确保 Django 能找到你的静态文件目录
+# static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
