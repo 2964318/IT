@@ -156,7 +156,6 @@ class Notification(models.Model):
 # Reset the database and create a new admin account
 # 1. Delete all migration files (you can manually delete all files under __pycache__ except __init__.py if it doesn't take effect)
 Get-ChildItem -Path . -Recurse -Include 0*.py,0*.pyc | Remove-Item -Force
-mac：find . -type f \( -name "0*.py" -o -name "0*.pyc" \) -exec rm -f {} +
 
 # 2. Reset database
 mysql -u root -p -e "DROP DATABASE course_system_db; CREATE DATABASE course_system_db;"
