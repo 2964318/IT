@@ -1,11 +1,8 @@
-<!-- templates/admin/dashboard.html -->
 {% extends 'base.html' %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
 <div class="container mt-4">
     <div class="row">
-        
-
         <!-- Students Section -->
         <div class="col-md-8 mx-auto">
             <div class="card">
@@ -16,8 +13,8 @@
                     <div class="list-group">
                         {% for student in students %}
                         <div class="list-group-item {% if student.is_active %}bg-light{% else %}bg-secondary{% endif %}">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                <div class="text-center text-md-start mb-2 mb-md-0">
                                     <h6>{{ student.username }} ({{ student.email }})</h6>
                                     <small class="text-muted">
                                         Courses: 
@@ -26,10 +23,10 @@
                                         {% endfor %}
                                     </small>
                                 </div>
-                                <div>
+                                <div class="d-flex flex-wrap justify-content-center gap-2">
                                     <a href="{% url 'edit_user' student.id %}" 
                                        class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil">edit</i>
+                                        <i class="bi bi-pencil"></i> <span class="d-none d-md-inline">Edit</span>
                                     </a>
                                     <form method="post" 
                                           action="{% url 'toggle_user_status' student.id %}" 
@@ -38,9 +35,9 @@
                                         <button type="submit" 
                                                 class="btn btn-sm {% if student.is_active %}btn-danger{% else %}btn-success{% endif %}">
                                             {% if student.is_active %}
-                                                <i class="bi bi-person-x">Inactivate</i>
+                                                <i class="bi bi-person-x"></i> <span class="d-none d-md-inline">Inactivate</span>
                                             {% else %}
-                                                <i class="bi bi-person-check">activate</i>
+                                                <i class="bi bi-person-check"></i> <span class="d-none d-md-inline">Activate</span>
                                             {% endif %}
                                         </button>
                                     </form>
