@@ -144,3 +144,24 @@
 .custom-bg-soft-blue-gray {
     background-color: #e6eff1; /* Your preferred background color */
 }
+
+/* Custom CSS for mobile devices */
+@media (max-width: 767.98px) {
+    .btn-sm {
+        width: 100%; 
+        margin-bottom: 0.5rem; 
+    }
+}
+
+@media (max-width: 767.98px) {
+    .table th, .table td {
+        font-size: 0.875rem; 
+        padding: 0.5rem; 
+    }
+    .btn-sm {
+        padding: 0.25rem 0.5rem; 
+    }
+    .table td span[data-bs-toggle="tooltip"] {
+        white-space: normal; 
+    }
+}
