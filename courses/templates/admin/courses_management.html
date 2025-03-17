@@ -1,4 +1,3 @@
-<!-- templates/admin/dashboard.html -->
 {% extends 'base.html' %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
 {% block content %}
@@ -10,15 +9,15 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5><i class="bi bi-calendar2"></i> Courses Management</h5>
                     <a href="{% url 'add_course' %}" class="btn btn-sm btn-success">
-                        <i class="bi bi-plus-lg"></i> Add Course
+                        <i class="bi bi-plus-lg"></i> <span class="d-none d-md-inline">Add Course</span>
                     </a>
                 </div>
                 <div class="card-body">
                     <div class="list-group">
                         {% for course in courses %}
                         <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                <div class="text-center text-md-start mb-2 mb-md-0">
                                     <h6>{{ course.code }} - {{ course.name }} - {{ course.teacher }}</h6>
                                     <small class="text-muted">
                                         Students: {% for enrollment in course.enrollment_set.all %}
@@ -26,16 +25,16 @@
                                         {% endfor %}
                                     </small>
                                 </div>
-                                <div>
+                                <div class="d-flex flex-wrap justify-content-center gap-2">
                                     <a href="{% url 'edit_course' course.id %}" 
                                        class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil">edit</i>
+                                        <i class="bi bi-pencil"></i> <span class="d-none d-md-inline">Edit</span>
                                     </a>
                                     <form method="post" action="{% url 'delete_course' course.id %}" 
                                           class="d-inline">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash">delete</i>
+                                            <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Delete</span>
                                         </button>
                                     </form>
                                 </div>
@@ -46,8 +45,6 @@
                 </div>
             </div>
         </div>
-
-        
     </div>
 </div>
 {% endblock %}
