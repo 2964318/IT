@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body_class %}custom-bg-soft-blue{% endblock %}
+{% block title %}Course Enrollment{% endblock %}
 {% load static %}
 
 {% block content %}
@@ -17,8 +18,13 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Class</th>
-                            <th scope="col">ID</th>
-                            <th scope="col">Days and Times</th>
+                            <th scope="col" class="d-none d-md-table-cell">ID</th> <!-- Hide the ID column on mobile -->
+                            <th scope="col">
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Days and Times">
+                                    <span class="d-none d-md-inline">Days and Times</span>
+                                    <span class="d-inline d-md-none">Time</span> <!-- Hide the title on mobile -->
+                                </span>
+                            </th>
                             <th scope="col">Credits</th>
                             <th scope="col">Teacher</th>
                             <th scope="col">Status</th>
@@ -33,30 +39,39 @@
                                     {{ row.class }}
                                 </a>
                             </td>
-                            <td>{{ row.id }}</td>
-                            <td>{{ row.days_times }}</td>
-                            <td>{{ row.credits }}</td>
-                            <td>{{ row.teacher }}</td>
+                            <td class="d-none d-md-table-cell">{{ row.id }}</td> 
+                            <td>
+                                <span class="d-none d-md-inline">{{ row.days_times }}</span> <!-- The complete time information is displayed on the PC -->
+                                <span class="d-inline d-md-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ row.days_times }}">
+                                    {{ row.days_times|truncatechars:15 }} <!-- The simplified time information is displayed on the mobile terminal -->
+                                </span>
+                            </td>
+                            <td>{{ row.credits }}</td> 
+                            <td>
+                                {{ row.teacher|truncatechars:10 }} <!-- Simplified teacher name -->
+                            </td>
                             <td>
                                 <span class="badge {% if row.status == 'Enrolled' %}bg-success{% else %}bg-secondary{% endif %}">
                                     {{ row.status }}
                                 </span>
                             </td>
                             <td>
-                                {% if row.action == "Enroll" %}
-                                    <a href="{% url 'enroll' course_id=row.course.id %}" class="btn btn-sm btn-primary">
-                                        <i class="bi bi-plus-lg me-1"></i>Enroll
-                                    </a>
-                                {% elif row.enrollment %}
-                                    <a href="{% url 'drop' enrollment_id=row.enrollment.id %}" class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash me-1"></i>Drop
-                                    </a>
-                                {% endif %}
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% if row.action == "Enroll" %}
+                                        <a href="{% url 'enroll' course_id=row.course.id %}" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-plus-lg"></i> <span class="d-none d-md-inline">Enroll</span>
+                                        </a>
+                                    {% elif row.enrollment %}
+                                        <a href="{% url 'drop' enrollment_id=row.enrollment.id %}" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Drop</span>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-4">
+                            <td colspan="7" class="text-center text-muted py-4">
                                 <i class="bi bi-info-circle-fill me-2"></i>No courses available for enrollment.
                             </td>
                         </tr>
@@ -78,3 +93,7 @@
 </div>
 {% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'js/course_registration.js' %}"></script>
+
+{% endblock %}
